@@ -117,7 +117,19 @@ if st.button("⚙️ EJECUTAR ANÁLISIS MAESTRO"):
     with st.spinner("Sincronizando con mercados globales..."):
         accion = yf.Ticker(ticker_input)
         hist   = accion.history(period="1y")
-        info   = accion.info
+        # Info fundamental
+        try:
+            import time
+            time.sleep(1)  # pausa de 1 segundo para evitar rate limit
+            info = accion.info
+            nombre_empresa = info.get('longName', ticker_limpio)
+            sector = info.get('sector', 'N/A')
+            pais = info.get('country', 'N/A')
+        except Exception:
+            info = {}
+            nombre_empresa = ticker_limpio
+            sector = 'N/A'
+            pais = 'N/A'
 
     # FIX Bug #2: eliminamos el len(hist) < 200 para no bloquear BMV
     if hist.empty:
