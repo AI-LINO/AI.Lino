@@ -127,7 +127,7 @@ if st.button("⚙️ EJECUTAR ANÁLISIS MAESTRO"):
             pais = info.get('country', 'N/A')
         except Exception:
             info = {}
-            nombre_empresa = ticker_limpio
+            nombre_empresa = ticker_input
             sector = 'N/A'
             pais = 'N/A'
 
